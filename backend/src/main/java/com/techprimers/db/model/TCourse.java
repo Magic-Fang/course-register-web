@@ -10,7 +10,7 @@ public class TCourse {
     @Id
     @GeneratedValue
     @Column(name = "courseId")
-    private String courseId;
+    private Integer courseId;
     @Column(name = "courseName")
     private String courseName;
     @Column(name = "courseLocation")
@@ -25,11 +25,11 @@ public class TCourse {
         return courseSubject;
     }
 
-    public String getCourseId() {
+    public Integer getCourseId() {
         return courseId;
     }
 
-    public void setCourseId(String courseId) {
+    public void setCourseId(Integer courseId) {
         this.courseId = courseId;
     }
 

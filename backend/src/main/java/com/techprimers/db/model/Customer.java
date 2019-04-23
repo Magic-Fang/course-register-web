@@ -1,16 +1,14 @@
 package com.techprimers.db.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "Customer")
 public class Customer {
     @Id
     @GeneratedValue
     @Column(name="userId")
-    private String userId;
+    private Integer userId;
 
     @Column(name="userName")
     private String userName;
@@ -23,14 +21,14 @@ public class Customer {
 
     }
 
-    public String getUserId() {
+    public Integer getUserId() {
         return userId;
     }
     public  String getUserName(){
         return userName;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
