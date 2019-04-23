@@ -21,11 +21,10 @@ public class CourseService {
     @Autowired
     CustomerRepository customerRepository;
 
-//
-//    public Customer GetOneCustomer(String customerName, String passWord){
-//        return "";
+//    public TCourse registerCourse(String courseId, String studentId){
 //
 //    }
+
 //
 //    public List<TCourse>GetTeacherCourse(String teacherId){
 //
@@ -64,9 +63,6 @@ public class CourseService {
 //
 //    }
 //
-//    public TCourse registerCourse(String courseId, String studentId){
-//
-//    }
 //
 //
 //    public List<Customer> getStudentsRegiteredForThisCourse(String CourseId){
@@ -77,6 +73,10 @@ public class CourseService {
         Customer newCustomer = customerRepository.save(customer);
         return newCustomer;
     }
+//    public Customer GetOneCustomer(String customerName, String passWord){
+//        return "";
+//
+//    }
 //
 //    public Customer CheckCustomerExists(String customerName){
 //
