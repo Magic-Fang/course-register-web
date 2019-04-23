@@ -1,4 +1,4 @@
-package com.example.demo.modal;
+package com.techprimers.db.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
