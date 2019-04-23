@@ -25,6 +25,8 @@
 *.log
 *.sql
 *.sqlite
+*.idea
+
 
 # OS generated files #
 ######################
@@ -33,5 +35,7 @@
 ._*
 .Spotlight-V100
 .Trashes
+.idea/
+.idea/*
 ehthumbs.db
 Thumbs.db
