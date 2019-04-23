@@ -26,29 +26,34 @@ public class CourseService {
 //    }
 
 //
-//    public List<TCourse>GetTeacherCourse(String teacherId){
-//
-//    }
+    public List<TCourse>GetTeacherCourse(String teacherId){
+        List<TCourse> res = courseRepository.findByTeacherId(teacherId);
+        return  res;
+    }
 //
 //    public TCourse getSingleCourse(String courseId){
 //
 //    }
 //
-//    public TCourse putCourse(TCourse tcourse, String courseId){
+    public TCourse putCourse(TCourse tcourse, String courseId){
+        return courseRepository.saveAndFlush(tcourse);
+    }
 //
-//    }
+    public TCourse postCourse(TCourse tcourse){
+        TCourse tc = courseRepository.save(tcourse);
+        return tc;
+    }
 //
-//    public TCourse postCourse(TCourse tcourse){
+    public TCourse deleteCourse(Integer courseId){
+        TCourse tc = courseRepository.findOne(courseId);
+        courseRepository.delete(tc);
+        return tc;
+    }
 //
-//    }
-//
-//    public TCourse deleteCourse(String courseId){
-//
-//    }
-//
-//    public List<TCourse> getAllCourses(){
-//
-//    }
+    public List<TCourse> getAllCourses(){
+        List<TCourse> tc = courseRepository.findAll();
+        return tc;
+    }
 
 
 // -------------------------------------------------------

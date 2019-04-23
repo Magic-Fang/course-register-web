@@ -48,13 +48,13 @@ public class CourseController {
 //
 //    // ------------- course controller --------------
 //
-//    @CrossOrigin
-//    @GetMapping(path = "/course/{teachId}", produces="application/json")
-//    public HttpEntity GetTeacherCourse(@PathVariable String teachId){
-//        List<TCourse> currentCourses = courseService.GetTeacherCourse(teachId);
-//
-//        return new ResponseEntity<>(currentCourses, HttpStatus.OK);
-//    }
+    @CrossOrigin
+    @GetMapping(path = "/course/{teachId}", produces="application/json")
+    public HttpEntity GetTeacherCourse(@PathVariable String teachId){
+        List<TCourse> currentCourses = courseService.GetTeacherCourse(teachId);
+
+        return new ResponseEntity<>(currentCourses, HttpStatus.OK);
+    }
 //
 //    @CrossOrigin
 //    @GetMapping(path = "/course/one/{courseId}", produces="application/json")
@@ -64,37 +64,37 @@ public class CourseController {
 //        return new ResponseEntity<>(currentCourses, HttpStatus.OK);
 //    }
 //
-//    @CrossOrigin
-//    @PutMapping(path = "/course/one/{courseId}", produces="application/json")
-//    public HttpEntity putCourse(@RequestBody TCourse tcourse, @PathVariable String courseId){
-//        TCourse currentCourses = courseService.putCourse(tcourse, courseId);
+    @CrossOrigin
+    @PutMapping(path = "/course/one/{courseId}", produces="application/json")
+    public HttpEntity putCourse(@RequestBody TCourse tcourse, @PathVariable String courseId){
+        TCourse currentCourses = courseService.putCourse(tcourse, courseId);
+
+        return new ResponseEntity<>(currentCourses, HttpStatus.OK);
+    }
 //
-//        return new ResponseEntity<>(currentCourses, HttpStatus.OK);
-//    }
+    @CrossOrigin
+    @PostMapping(path = "/course/add", produces="application/json")
+    public HttpEntity postCourse(@RequestBody TCourse tcourse){
+        TCourse currentCourses = courseService.postCourse(tcourse);
+
+        return new ResponseEntity<>(currentCourses, HttpStatus.OK);
+    }
 //
-//    @CrossOrigin
-//    @PostMapping(path = "/course/add", produces="application/json")
-//    public HttpEntity postCourse(@RequestBody TCourse tcourse){
-//        TCourse currentCourses = courseService.postCourse(tcourse);
+    @CrossOrigin
+    @DeleteMapping(path = "/course/one/{courseId}", produces="application/json")
+    public HttpEntity deleteCourse(@PathVariable Integer courseId){
+        TCourse currentCourses = courseService.deleteCourse(courseId);
+
+        return new ResponseEntity<>(currentCourses, HttpStatus.OK);
+    }
 //
-//        return new ResponseEntity<>(currentCourses, HttpStatus.OK);
-//    }
-//
-//    @CrossOrigin
-//    @DeleteMapping(path = "/course/one/{courseId}", produces="application/json")
-//    public HttpEntity deleteCourse(@PathVariable String courseId){
-//        TCourse currentCourses = courseService.deleteCourse( courseId);
-//
-//        return new ResponseEntity<>(currentCourses, HttpStatus.OK);
-//    }
-//
-//    @CrossOrigin
-//    @GetMapping(path = "/course", produces="application/json")
-//    public HttpEntity getAllCourses(){
-//        List<TCourse> currentCourses = courseService.getAllCourses();
-//
-//        return new ResponseEntity<>(currentCourses, HttpStatus.OK);
-//    }
+    @CrossOrigin
+    @GetMapping(path = "/course", produces="application/json")
+    public HttpEntity getAllCourses(){
+        List<TCourse> currentCourses = courseService.getAllCourses();
+
+        return new ResponseEntity<>(currentCourses, HttpStatus.OK);
+    }
 //
 //    @CrossOrigin
 //    @GetMapping(path = "/course/look/{studentId}", produces="application/json")
