@@ -1,4 +1,4 @@
-package com.techprimers.db.resource;
+package com.techprimers.db.controller;
 
 import com.techprimers.db.model.Users;
 import com.techprimers.db.repository.UsersRepository;
@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(value = "/rest/users")
-public class UsersResource {
+public class UsersController {
 
     @Autowired
     UsersRepository usersRepository;
