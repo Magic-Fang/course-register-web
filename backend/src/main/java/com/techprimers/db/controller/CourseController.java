@@ -1,9 +1,8 @@
-package com.example.demo.controller;
+package com.techprimers.db.controller;
 
-import com.example.demo.modal.Contact;
-import com.example.demo.modal.TCourse;
-import com.example.demo.modal.User;
-import com.example.demo.service.CourseService;
+import com.techprimers.db.model.TCourse;
+import com.techprimers.db.model.User;
+import com.techprimers.db.service.courseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -27,6 +26,27 @@ public class CourseController {
         }
         return new ResponseEntity<>(guy, HttpStatus.OK);
     }
+
+    @CrossOrigin
+    @PostMapping(path = "/user", produces="application/json")
+    public HttpEntity RegisterUser(@RequestBody User user){
+        User u = courseService.RegisterUser(user);
+
+        return new ResponseEntity<>(u, HttpStatus.OK);
+    }
+
+    @CrossOrigin
+    @GetMapping(path = "/user/{userName}", produces="application/json")
+    public HttpEntity CheckUserExists(@PathVariable String userName){
+        User guy = courseService.CheckUserExists(userName);
+        if(guy == null){
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(guy, HttpStatus.OK);
+    }
+
+
+    // ------------- course controller --------------
 
     @CrossOrigin
     @GetMapping(path = "/course/{teachId}", produces="application/json")
@@ -109,22 +129,5 @@ public class CourseController {
         return new ResponseEntity<>(guy, HttpStatus.OK);
     }
 
-    @CrossOrigin
-    @PostMapping(path = "/user", produces="application/json")
-    public HttpEntity RegisterUser(@RequestBody User user){
-        User u = courseService.RegisterUser(user);
-
-        return new ResponseEntity<>(u, HttpStatus.OK);
-    }
-
-    @CrossOrigin
-    @GetMapping(path = "/user/{userName}", produces="application/json")
-    public HttpEntity CheckUserExists(@PathVariable String userName){
-        User guy = courseService.CheckUserExists(userName);
-        if(guy == null){
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
-        }
-        return new ResponseEntity<>(guy, HttpStatus.OK);
-    }
 
 }
