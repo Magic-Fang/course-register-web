@@ -78,13 +78,16 @@ public class CourseService {
         Customer newCustomer = customerRepository.save(customer);
         return newCustomer;
     }
-//    public Customer GetOneCustomer(String customerName, String passWord){
-//        return "";
-//
-//    }
-//
-//    public Customer CheckCustomerExists(String customerName){
-//
-//    }
-//
+
+    public Customer GetOneCustomer(String userName, String passWord){
+        //System.out.println(userName);
+        Customer oneCustomer = customerRepository.findByUserName(userName);
+        //Customer oneCustomer = customerRepository.findOne(1);
+        if (oneCustomer!=null && oneCustomer.getPassWord().equals(passWord)){
+            return oneCustomer;}
+        else {
+            System.out.println("cannot find proper customer");
+            return null;}
+    }
+
 }

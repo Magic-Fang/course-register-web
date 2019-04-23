@@ -8,6 +8,8 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import com.techprimers.db.repository.CourseRepository;
+import com.techprimers.db.repository.CustomerRepository;
 
 import java.util.List;
 
@@ -16,17 +18,23 @@ import java.util.List;
 public class CourseController {
     @Autowired
     CourseService courseService;
+    @Autowired
+    CourseRepository courseRepository;
+    @Autowired
+    CustomerRepository customerRepository;
 
-//    @CrossOrigin
-//    @GetMapping(path = "/users/{userName}/{passWord}", produces="application/json")
-//    public HttpEntity GetOneUser(@PathVariable String userName, @PathVariable String passWord){
-//        Customer guy = courseService.GetOneCustomer(userName, passWord);
-//        if(guy == null){
-//            return new ResponseEntity(HttpStatus.NOT_FOUND);
-//        }
-//        return new ResponseEntity<>(guy, HttpStatus.OK);
-//    }
-//
+    @CrossOrigin
+    @GetMapping(path = "/users/{userName}/{passWord}", produces="application/json")
+    public HttpEntity GetOneUser(@PathVariable String userName, @PathVariable String passWord){
+        //System.out.println(userName);
+        //System.out.println(passWord);
+        Customer guy = courseService.GetOneCustomer(userName, passWord);
+        if(guy == null){
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(guy, HttpStatus.OK);
+    }
+
     @CrossOrigin
     @PostMapping(path = "/user", produces="application/json")
     public HttpEntity RegisterUser(@RequestBody Customer user){
@@ -35,15 +43,15 @@ public class CourseController {
         return new ResponseEntity<>(u, HttpStatus.OK);
     }
 
-//    @CrossOrigin
-//    @GetMapping(path = "/user/{userName}", produces="application/json")
-//    public HttpEntity CheckUserExists(@PathVariable String userName){
-//        Customer guy = courseService.CheckCustomerExists(userName);
-//        if(guy == null){
-//            return new ResponseEntity(HttpStatus.NOT_FOUND);
-//        }
-//        return new ResponseEntity<>(guy, HttpStatus.OK);
-//    }
+    @CrossOrigin
+    @GetMapping(path = "/user/{userName}", produces="application/json")
+    public HttpEntity CheckUserExists(@PathVariable String userName){
+        Customer guy = customerRepository.findByUserName(userName);
+        if(guy == null){
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(guy, HttpStatus.OK);
+    }
 //
 //
 //    // ------------- course controller --------------
