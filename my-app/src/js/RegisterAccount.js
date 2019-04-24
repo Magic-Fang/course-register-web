@@ -13,7 +13,7 @@ class RegisterAccount extends Component{
             userId: '',
             userName: '',
             passWord: '',
-            identity: ''
+            identity: 'Teacher'
 
         };
         super(props);  
@@ -29,7 +29,7 @@ class RegisterAccount extends Component{
         const value = target.value;
         const name = target.name;
         let user = {...this.state.user};
-        user["identity"] = "Teacher";
+        //user["identity"] = "Teacher";
         user[name] = value;
         this.setState({user});
         console.log(user);
