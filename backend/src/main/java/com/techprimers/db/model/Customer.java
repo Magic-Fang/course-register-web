@@ -7,8 +7,8 @@ import javax.persistence.*;
 public class Customer {
     @Id
     @GeneratedValue
-    @Column(name="userId")
-    private Integer userId;
+    @Column(name="UserId")
+    private Integer UserId;
 
     @Column(name="userName")
     private String userName;
@@ -22,14 +22,14 @@ public class Customer {
     }
 
     public Integer getUserId() {
-        return userId;
+        return UserId;
     }
     public  String getUserName(){
         return userName;
     }
 
     public void setUserId(Integer userId) {
-        this.userId = userId;
+        this.UserId = userId;
     }
 
     public void setUserName(String userName) {

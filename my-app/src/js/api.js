@@ -16,8 +16,19 @@ class api{
 				'Accept': 'application/json',
 				'Content-Type': 'application/json'
 			}
-		})
-		.then(response => response.json());
+		});
+	}
+
+	static SuccessgetOneUser(userName, passWord) {
+		var endpoint = '/users/' + userName + '/' + passWord;
+		var url = api.domain() + endpoint;
+		return fetch(url, {
+			method: 'GET',
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			}
+		}).then(response => response.json());
 	}
 
 	static getTeacherCourse(techId){
@@ -124,7 +135,7 @@ class api{
 	}
 
 	static registerCourse(studentId, courseId) {
-		var endpoint = '/course/register/' + courseId + '/' + studentId;
+		var endpoint = '/course/register/' + studentId + '/' + courseId;
 		var url = api.domain() + endpoint;
 		return fetch(url, {
             method: 'POST',

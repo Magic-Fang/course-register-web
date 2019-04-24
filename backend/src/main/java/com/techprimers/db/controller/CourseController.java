@@ -1,5 +1,6 @@
 package com.techprimers.db.controller;
 
+import com.techprimers.db.model.StudentToCourse;
 import com.techprimers.db.model.TCourse;
 import com.techprimers.db.model.Customer;
 import com.techprimers.db.service.CourseService;
@@ -64,13 +65,13 @@ public class CourseController {
         return new ResponseEntity<>(currentCourses, HttpStatus.OK);
     }
 //
-//    @CrossOrigin
-//    @GetMapping(path = "/course/one/{courseId}", produces="application/json")
-//    public HttpEntity getSingleCourse(@PathVariable String courseId){
-//        TCourse currentCourses = courseService.getSingleCourse(courseId);
-//
-//        return new ResponseEntity<>(currentCourses, HttpStatus.OK);
-//    }
+    @CrossOrigin
+    @GetMapping(path = "/course/one/{courseId}", produces="application/json")
+    public HttpEntity getSingleCourse(@PathVariable String courseId){
+        TCourse currentCourses = courseService.getCourse(Integer.valueOf(courseId));
+
+        return new ResponseEntity<>(currentCourses, HttpStatus.OK);
+    }
 //
     @CrossOrigin
     @PutMapping(path = "/course/one/{courseId}", produces="application/json")
@@ -104,38 +105,52 @@ public class CourseController {
         return new ResponseEntity<>(currentCourses, HttpStatus.OK);
     }
 //
-//    @CrossOrigin
-//    @GetMapping(path = "/course/look/{studentId}", produces="application/json")
-//    public HttpEntity GetStudentCourse(@PathVariable String studentId){
+    @CrossOrigin
+    @GetMapping(path = "/course/look/{studentId}", produces="application/json")
+    public HttpEntity GetStudentCourse(@PathVariable String studentId){
+        Integer stid = new Integer(Integer.valueOf(studentId));
+        Customer curStudent = courseService.findOneCust(stid);
+        List<TCourse> currentCourses = courseService.GetStudentCourse(curStudent);
+
+        return new ResponseEntity<>(currentCourses, HttpStatus.OK);
+    }
 //
-//        List<TCourse> currentCourses = courseService.GetStudentCourse(studentId);
+    @CrossOrigin
+    @DeleteMapping(path = "/course/drop/{courseId}/{studentId}", produces="application/json")
+    public HttpEntity dropCourse(@PathVariable String courseId, @PathVariable String studentId){
+        Integer stid = Integer.valueOf(studentId);
+        Integer csid = Integer.valueOf(courseId);
+        Customer curStudent = courseService.findOneCust(stid);
+        TCourse curCourse = courseService.getCourse(csid);
+        courseService.dropCourse(curCourse, curStudent);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 //
-//        return new ResponseEntity<>(currentCourses, HttpStatus.OK);
-//    }
+    @CrossOrigin
+    @PostMapping(path = "/course/register/{studentId}/{courseId}", produces="application/json")
+    public HttpEntity registerCourse(@PathVariable String studentId, @PathVariable String courseId){
+        Integer stid = Integer.valueOf(studentId);
+        Integer csid = Integer.valueOf(courseId);
+        Customer curStudent = courseService.findOneCust(stid);
+        TCourse curCourse = courseService.getCourse(csid);
+        StudentToCourse stt = new StudentToCourse();
+        stt.setCustomer(curStudent);
+        stt.setTcourse(curCourse);
+        StudentToCourse st = courseService.registerCourse(stt);
+
+        return new ResponseEntity<>(st, HttpStatus.OK);
+    }
 //
-//    @CrossOrigin
-//    @DeleteMapping(path = "/course/drop/{courseId}/{studentId}", produces="application/json")
-//    public HttpEntity dropCourse(@PathVariable String courseId, @PathVariable String studentId){
-//        TCourse currentCourses = courseService.dropCourse(courseId, studentId);
-//
-//        return new ResponseEntity<>(currentCourses, HttpStatus.OK);
-//    }
-//
-//    @CrossOrigin
-//    @PostMapping(path = "/course/register/{courseId}/{studentId}", produces="application/json")
-//    public HttpEntity registerCourse(@PathVariable String courseId, @PathVariable String studentId){
-//        TCourse currentCourses = courseService.registerCourse(courseId, studentId);
-//
-//        return new ResponseEntity<>(currentCourses, HttpStatus.OK);
-//    }
-//
-//    @CrossOrigin
-//    @GetMapping(path = "/course/hook/{courseId}", produces="application/json")
-//    public HttpEntity getStudentsRegiteredForThisCourse(@PathVariable String courseId){
-//        List<Customer> guy = courseService.getStudentsRegiteredForThisCourse(courseId);
-//
-//        return new ResponseEntity<>(guy, HttpStatus.OK);
-//    }
+    @CrossOrigin
+    @GetMapping(path = "/course/hook/{courseId}", produces="application/json")
+    public HttpEntity getStudentsRegiteredForThisCourse(@PathVariable String courseId){
+        Integer csid = Integer.valueOf(courseId);
+        TCourse curCourse = courseService.getCourse(csid);
+        List<Customer> guy = courseService.getStudentsRegiteredForThisCourse(curCourse);
+
+        return new ResponseEntity<>(guy, HttpStatus.OK);
+    }
 
 
 }

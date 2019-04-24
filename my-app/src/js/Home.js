@@ -9,7 +9,7 @@ class Home extends Component {
 
 	constructor(props) {  
         var userItem = {
-            UserName: '',
+            userName: '',
             UserPass: ''
         };
         super(props);  
@@ -35,18 +35,23 @@ class Home extends Component {
 		event.preventDefault();
         const {user} = this.state;
         
-        const result = await api.getOneUser(user.UserName, user.UserPass);
+        const result = await api.getOneUser(user.userName, user.UserPass);
         console.log("getOneUser request sent")
         // console.log("update project name");
         // console.log(result2.status);
         // this.props.history.push("/user/" + userID);
-        if (result.status == 404) {
-            alert("Invalid UserName or Password");
-        } else if(result.identity == 'Student'){
-            this.props.history.push("/student/" + result.userId);
+        if (result.status !== 200) {
+            alert("Invalid userName or Password");
+            window.location.reload();
         } else{
-        	console.log("techer found")
-        	this.props.history.push("/teacher/" + result.userId);
+            const result = await api.SuccessgetOneUser(user.userName, user.UserPass);
+            
+            if(result.identity == 'Student'){
+            this.props.history.push("/student/" + result.userId);
+            } else{
+            console.log("techer found")
+            this.props.history.push("/teacher/" + result.userId);
+            }
         }
 
 	}
@@ -65,7 +70,7 @@ class Home extends Component {
 
                         <Label for="projectname">Please Login</Label>
                         <br/>
-                        UserName:<Input type="text" name="UserName" id="UserName" value={user.UserName || ''}
+                        userName:<Input type="text" name="userName" id="userName" value={user.userName || ''}
                             onChange={this.handleChange} autoComplete="address-level1"/>
                         <br/>
                         password:<Input type="password" name="UserPass" id="UserPass" value={user.UserPass || ''}

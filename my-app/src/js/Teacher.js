@@ -30,11 +30,21 @@ class Teacher extends Component{
     }
 
     async handleDeleteClick(id){
-    	 await api.deleteCourse(id)
-        .then(() => {
-            let updatedcourses = [...this.state.courses].filter(i => i.courseId !== id);
-            this.setState({courses: updatedcourses});
-        });
+
+        const result = await api.deleteCourse(id);
+        var flag = true;
+        if(result.status == 500){
+            flag = false;
+            alert("Some student have already registered this course, you can not delete it now!")
+        }
+    	 
+        if(flag){
+            await api.deleteCourse(id)
+            .then(() => {
+                let updatedcourses = [...this.state.courses].filter(i => i.courseId !== id);
+                this.setState({courses: updatedcourses});
+            });
+        }
     }
 
     componentDidMount() {

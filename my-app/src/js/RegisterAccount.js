@@ -11,7 +11,7 @@ class RegisterAccount extends Component{
 	constructor(props) {  
         var userItem = {
             userId: '',
-            UserName: '',
+            userName: '',
             passWord: '',
             identity: ''
 
@@ -29,8 +29,10 @@ class RegisterAccount extends Component{
         const value = target.value;
         const name = target.name;
         let user = {...this.state.user};
+        user["identity"] = "Teacher";
         user[name] = value;
         this.setState({user});
+        console.log(user);
 	}
 
 	async handleSubmit(event){
@@ -38,11 +40,13 @@ class RegisterAccount extends Component{
 		event.preventDefault();
         const {user} = this.state;
         
-        const result = await api.CheckUserExists(user.UserName);
+        const result = await api.CheckUserExists(user.userName);
         if (result.status == 200) {
-            alert("UserName has already registered, Please change another UserName");
+            alert("userName has already registered, Please change another userName");
             window.location.reload(); 
         } else {
+            console.log("no duplicate");
+            console.log(user);
         	await api.RegisterUser(user);
         	this.props.history.push("/");
         }
@@ -65,21 +69,21 @@ class RegisterAccount extends Component{
 
                         <Label for="register">Register an Account</Label>
                         <br/>
-                        UserName:<Input type="text" name="UserName" id="UserName" value={user.UserName || ''}
+                        UserName:<Input type="text" name="userName" id="userName" value={user.userName || ''}
                             onChange={this.handleChange} autoComplete="address-level1"/>
                         <br/>
                         password:<Input type="password" name="passWord" id="UserPass" value={user.passWord || ''}
                             onChange={this.handleChange} autoComplete="address-level1"/>
                          <br/>
-                        Identity: 	<select name="identity" >
-									  <option value="Teachear">Teachear</option>
-									  <option value="Student">Student</option>
+                        Identity: 	<select name="identity" onChange={this.handleChange}>
+									  <option name="identity" value="Teachear" >Teachear</option>
+									  <option name="identity" value="Student" >Student</option>
 				
 									</select>
                     </FormGroup>
                     <FormGroup>
                         <Button color="primary" name="q" type="submit">Register</Button>{' '}
-                        <Button color="secondary" name="Cancel" >Cancel</Button>
+                        <Button color="secondary" name="Cancel" tag={Link} to={"/"}>Cancel</Button>
                     </FormGroup>
                 </Form>
       

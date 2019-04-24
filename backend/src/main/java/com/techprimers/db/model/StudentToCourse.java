@@ -10,12 +10,18 @@ public class StudentToCourse {
     @GeneratedValue
     @Column(name = "Id")
     private Integer Id;
-    @ManyToOne(targetEntity = Customer.class, fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "userId", nullable = false)
-    private Integer userId;
-    @ManyToOne(targetEntity = TCourse.class, fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "CourseId", nullable = false)
-    private Integer CourseId;
+
+    //@ManyToOne(targetEntity = Customer.class, fetch = FetchType.LAZY)
+    //@JoinColumn(name = "userId", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", nullable = false)
+    private Customer customer;
+
+//    @ManyToOne(targetEntity = TCourse.class, fetch = FetchType.LAZY)
+//    @JoinColumn(name = "CourseId", nullable = false)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "course_id", nullable = false)
+    private TCourse tcourse;
 
     public StudentToCourse(){
 
@@ -29,19 +35,19 @@ public class StudentToCourse {
         Id = id;
     }
 
-    public Integer getUserId() {
-        return userId;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setUserId(Integer userId) {
-        this.userId = userId;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
-    public Integer getCourseId() {
-        return CourseId;
+    public TCourse getTcourse() {
+        return tcourse;
     }
 
-    public void setCourseId(Integer courseId) {
-        CourseId = courseId;
+    public void setTcourse(TCourse tcourse) {
+        this.tcourse = tcourse;
     }
 }

@@ -1,16 +1,21 @@
 package com.techprimers.db.service;
 
 
+import com.techprimers.db.model.StudentToCourse;
 import com.techprimers.db.model.TCourse;
 import com.techprimers.db.model.Customer;
 import com.techprimers.db.repository.CourseRepository;
 import com.techprimers.db.repository.CustomerRepository;
+import com.techprimers.db.repository.StudentToCourseRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @Component
@@ -20,11 +25,22 @@ public class CourseService {
     CourseRepository courseRepository;
     @Autowired
     CustomerRepository customerRepository;
+    @Autowired
+    StudentToCourseRepository studenttocourserepository;
 
-//    public TCourse registerCourse(String courseId, String studentId){
-//
-//    }
+    public StudentToCourse registerCourse(StudentToCourse stt){
 
+        return studenttocourserepository.save(stt);
+
+    }
+
+    public Customer findOneCust(Integer StudentId){
+        return customerRepository.findOne(StudentId);
+    }
+
+    public TCourse getCourse(Integer courseId){
+        return courseRepository.findOne(courseId);
+    }
 //
     public List<TCourse>GetTeacherCourse(String teacherId){
         List<TCourse> res = courseRepository.findByTeacherId(teacherId);
@@ -60,19 +76,41 @@ public class CourseService {
 
 
 //
-//    public List<TCourse> GetStudentCourse(String studentId){
+    public List<TCourse> GetStudentCourse(Customer curCust){
+        List<StudentToCourse> curSt = studenttocourserepository.findByCustomer(curCust);
+
+        List<TCourse> res = new ArrayList<>();
+
+        for(StudentToCourse st : curSt){
+            TCourse curCourse = courseRepository.findOne(st.getTcourse().getCourseId());
+            res.add(curCourse);
+        }
+
+        return  res;
+    }
 //
-//    }
+    public void dropCourse(TCourse courseId, Customer studentId){
+        List<StudentToCourse> curSt = studenttocourserepository.findByTcourseAndCustomer(courseId, studentId);
+
+        for(StudentToCourse st : curSt){
+            studenttocourserepository.delete(st);
+        }
+    }
 //
-//    public TCourse dropCourse(String courseId, String studentId){
-//
-//    }
 //
 //
-//
-//    public List<Customer> getStudentsRegiteredForThisCourse(String CourseId){
-//
-//    }
+    public List<Customer> getStudentsRegiteredForThisCourse(TCourse curCourse){
+        List<StudentToCourse> curSt = studenttocourserepository.findByTcourse(curCourse);
+
+        List<Customer> res = new ArrayList<>();
+
+        for(StudentToCourse st : curSt){
+            Customer curStudent = customerRepository.findOne(st.getCustomer().getUserId());
+            res.add(curStudent);
+        }
+
+        return res;
+    }
 //
     public Customer RegisterCustomer(Customer customer){
         Customer newCustomer = customerRepository.save(customer);

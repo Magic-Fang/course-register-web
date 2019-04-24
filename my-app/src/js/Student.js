@@ -46,7 +46,18 @@ class Student extends Component{
 
     async handleRegisterClick(courseId){
 
-    	await api.registerCourse(this.state.userId, courseId)
+        const result = await api.getStudentsRegiteredForThisCourse(courseId);
+        var flag = true;
+        var resLen = result.length;
+        for(var i = 0; i < resLen; i++){
+            if(result[i].userId == this.state.userId){
+                alert("You have already registered this class!");
+                flag = false;
+            }
+        }
+        if(flag){
+            await api.registerCourse(this.state.userId, courseId)
+        }
 
     	// this.props.history.push("/student/" + this.state.userId);
     	window.location.reload(); 
